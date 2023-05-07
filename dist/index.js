@@ -38,21 +38,30 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core = __importStar(__nccwpck_require__(2186));
 const fs = __importStar(__nccwpck_require__(7147));
 const client_1 = __nccwpck_require__(324);
-const notion = new client_1.Client({
-    auth: process.env.NOTION_API_TOKEN,
-    logLevel: client_1.LogLevel.DEBUG
-});
+const console_1 = __importDefault(__nccwpck_require__(6206));
+const token = process.env.NOTION_API_TOKEN;
 const databaseId = process.env.NOTION_DB_ID;
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            if (databaseId === undefined) {
+            if (token === undefined) {
+                console_1.default.log('NOTION_API_TOKEN is not defined');
                 return;
             }
+            if (databaseId === undefined) {
+                console_1.default.log('NOTION_DB_ID is not defined');
+                return;
+            }
+            const notion = new client_1.Client({
+                auth: token
+            });
             const filter = core.getInput('filter');
             JSON.stringify(filter);
             const headerText = core.getInput('header');
@@ -73,7 +82,7 @@ function run() {
                 }
                 cursor = next_cursor;
             }
-            const pageLinks = ['- '];
+            const pageLinks = [];
             for (const page of pages) {
                 if (page.object !== 'page') {
                     continue;
@@ -83,7 +92,7 @@ function run() {
                 }
                 for (const [, prop] of Object.entries(page.properties)) {
                     if (prop.type === 'title') {
-                        pageLinks.push(`<${page.url}>|${prop.title[0].plain_text}`);
+                        pageLinks.push(`- <${page.url}|${prop.title[0].plain_text}>`);
                     }
                 }
             }
@@ -110,7 +119,7 @@ function run() {
                 type: 'section',
                 text: {
                     type: 'mrkdwn',
-                    text: pageLinks.join('\n-')
+                    text: pageLinks.join('\n')
                 }
             });
             const payload = { blocks };
@@ -7829,6 +7838,14 @@ module.exports = eval("require")("encoding");
 
 "use strict";
 module.exports = require("assert");
+
+/***/ }),
+
+/***/ 6206:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("console");
 
 /***/ }),
 
