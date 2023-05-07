@@ -82,6 +82,10 @@ function run() {
                 }
                 cursor = next_cursor;
             }
+            if (pages.length === 0) {
+                console_1.default.log('No pages found');
+                return;
+            }
             const pageLinks = [];
             for (const page of pages) {
                 if (page.object !== 'page') {

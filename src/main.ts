@@ -43,6 +43,10 @@ async function run(): Promise<void> {
       }
       cursor = next_cursor
     }
+    if (pages.length === 0) {
+      console.log('No pages found')
+      return
+    }
 
     const pageLinks = []
     for (const page of pages) {
