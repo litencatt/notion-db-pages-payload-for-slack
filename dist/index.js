@@ -64,7 +64,7 @@ function run() {
                 const { results, next_cursor } = yield notion.databases.query({
                     database_id: databaseId,
                     // @ts-ignore
-                    filter,
+                    filter: JSON.parse(filter),
                     start_cursor: cursor
                 });
                 pages.push(...results);
