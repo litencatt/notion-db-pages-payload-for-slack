@@ -7,26 +7,30 @@ const token = process.env.NOTION_API_TOKEN
 const databaseId = process.env.NOTION_DB_ID
 
 async function run(): Promise<void> {
+  if (token === undefined) {
+    console.log('NOTION_API_TOKEN is not defined')
+    return
+  }
+
+  if (databaseId === undefined) {
+    console.log('NOTION_DB_ID is not defined')
+    return
+  }
+
+  const notion = new Client({
+    auth: token
+  })
+
+  const filter = core.getInput('filter')
+  const headerText = core.getInput('header')
+  const desc = core.getInput('description')
   try {
-    if (token === undefined) {
-      console.log('NOTION_API_TOKEN is not defined')
-      return
-    }
+    JSON.parse(filter)
+  } catch (e) {
+    console.log(e)
+  }
 
-    if (databaseId === undefined) {
-      console.log('NOTION_DB_ID is not defined')
-      return
-    }
-
-    const notion = new Client({
-      auth: token
-    })
-
-    const filter = core.getInput('filter')
-    JSON.stringify(filter)
-    const headerText = core.getInput('header')
-    const desc = core.getInput('description')
-
+  try {
     const pages = []
     let cursor: string | undefined = undefined
     const isLoop = true
