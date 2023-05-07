@@ -20,14 +20,14 @@ Generate a Slack send payload json file from Notion DB query result.
 
   
 ```yml
-name: Action Test
+name: Send filtered Notion DB pages action
 on:
   push:
     branches: [ "main" ]
   workflow_dispatch:
 
 jobs:
-  build:
+  notify:
     runs-on: ubuntu-latest
 
     steps:
