@@ -25,7 +25,7 @@ async function run(): Promise<void> {
   // - export INPUT_FILTER="{\"property\":\"Select\",\"select\":{\"equals\":\"Foo\"}}"
   // - export INPUT_HEADER=...
   // - export INPUT_DESCRIPTION=...
-  // $ yarn start
+  // $ yarn dev
   const filter = core.getInput('filter')
   const headerText = core.getInput('header')
   const desc = core.getInput('description')
