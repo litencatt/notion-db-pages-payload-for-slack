@@ -8,6 +8,9 @@ Generate a Slack send payload data from Notion DB query result.
   -  [Create Notion Integration](https://developers.notion.com/docs/create-a-notion-integration)
 
 ### Usage
+- This action is supposed to be used with [slackapi/slack-github-action](https://github.com/slackapi/slack-github-action)
+- This action generate a payload data file(`payload.json`) to actions workspace root path
+  - And then you passing it to `slackapi/slack-github-action`.`payload-file-path`.
 ```yml
 name: Action Test
 on:
