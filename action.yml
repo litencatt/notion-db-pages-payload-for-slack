@@ -2,6 +2,17 @@ name: 'Notion DB pages payload for slack'
 description: 'Generate Notion DB pages query result payload for Slack notify'
 author: 'litencatt'
 inputs:
+  header:
+    default: ''
+    description: ''
+    required: false
+  description:
+    default: ''
+    description: ''
+    required: false
+  filter:
+    description: 'JSON filter payload to query to Notion database'
+    required: true
 runs:
   using: 'node16'
   main: 'dist/index.js'
