@@ -8,12 +8,12 @@ const databaseId = process.env.NOTION_DB_ID
 
 async function run(): Promise<void> {
   if (token === undefined) {
-    console.log('NOTION_API_TOKEN is not defined')
+    core.setFailed('NOTION_API_TOKEN is not defined')
     return
   }
 
   if (databaseId === undefined) {
-    console.log('NOTION_DB_ID is not defined')
+    core.setFailed('NOTION_DB_ID is not defined')
     return
   }
 
@@ -32,8 +32,8 @@ async function run(): Promise<void> {
 
   try {
     JSON.parse(filter)
-  } catch (e) {
-    console.log(e)
+  } catch (error) {
+    if (error instanceof Error) core.setFailed(error.message)
     return
   }
 
