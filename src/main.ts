@@ -34,6 +34,7 @@ async function run(): Promise<void> {
     JSON.parse(filter)
   } catch (e) {
     console.log(e)
+    return
   }
 
   try {
