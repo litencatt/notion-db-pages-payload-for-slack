@@ -1,5 +1,5 @@
-## Notion DB pages payload for Slack
-Generate a Slack send payload data from Notion DB query result.
+## Slack send payload generate GitHub Action
+Generate a Slack send payload json file from Notion DB query result.
 
 ### Setup
 - Slack
@@ -9,8 +9,15 @@ Generate a Slack send payload data from Notion DB query result.
 
 ### Usage
 - This action is supposed to be used with [slackapi/slack-github-action](https://github.com/slackapi/slack-github-action)
-- This action generate a payload data file(`payload.json`) to actions workspace root path
+- This action generate a payload data file to `./payload.json`
   - And then you passing it to `slackapi/slack-github-action`.`payload-file-path`.
+
+#### Notion DB pages example
+<img width="800" alt="image" src="https://user-images.githubusercontent.com/17349045/236664116-16ee8958-86ac-4b0b-a40b-b3ce883a7168.png">
+
+#### Slack Notify message example
+<img width="628" alt="image" src="https://user-images.githubusercontent.com/17349045/236664155-9a6d8a4b-302e-45a8-ad6d-93e62e279591.png">
+  
 ```yml
 name: Action Test
 on:
