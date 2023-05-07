@@ -9,14 +9,12 @@ const databaseId = process.env.NOTION_DB_ID
 async function run(): Promise<void> {
   if (token === undefined) {
     core.setFailed('NOTION_API_TOKEN is not defined')
-    process.exit(1)
-    return
+    throw new Error('Need to set secrets.NOTION_API_TOKEN')
   }
 
   if (databaseId === undefined) {
     core.setFailed('NOTION_DB_ID is not defined')
-    process.exit(1)
-    return
+    throw new Error('Need to set secrets.NOTION_DB_ID')
   }
 
   const notion = new Client({
@@ -36,7 +34,7 @@ async function run(): Promise<void> {
     JSON.parse(filter)
   } catch (error) {
     if (error instanceof Error) core.setFailed(error.message)
-    process.exit(1)
+    throw new Error('Need to provide valid JSON filter')
   }
 
   try {
@@ -57,8 +55,8 @@ async function run(): Promise<void> {
       cursor = next_cursor
     }
     if (pages.length === 0) {
-      console.log('No pages found')
-      process.exit(1)
+      console.error('No pages found')
+      throw new Error('Need to result at least 1 page for generate payload')
     }
 
     const pageLinks = []
