@@ -88,7 +88,7 @@ function run() {
                 }
             }
             const blocks = [];
-            if (headerText !== undefined) {
+            if (headerText !== '') {
                 blocks.push({
                     type: 'header',
                     text: {
@@ -97,7 +97,7 @@ function run() {
                     }
                 });
             }
-            if (desc !== undefined) {
+            if (desc !== '') {
                 blocks.push({
                     type: 'section',
                     text: {

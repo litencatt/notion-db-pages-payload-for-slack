@@ -51,7 +51,7 @@ async function run(): Promise<void> {
       }
     }
     const blocks = []
-    if (headerText !== undefined) {
+    if (headerText !== '') {
       blocks.push({
         type: 'header',
         text: {
@@ -60,7 +60,7 @@ async function run(): Promise<void> {
         }
       })
     }
-    if (desc !== undefined) {
+    if (desc !== '') {
       blocks.push({
         type: 'section',
         text: {
