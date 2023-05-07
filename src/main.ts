@@ -1,19 +1,27 @@
 import * as core from '@actions/core'
 import * as fs from 'fs'
-import {Client, LogLevel, isFullPage} from '@notionhq/client'
+import {Client, isFullPage} from '@notionhq/client'
+import console from 'console'
 
-const notion = new Client({
-  auth: process.env.NOTION_API_TOKEN,
-  logLevel: LogLevel.DEBUG
-})
-
+const token = process.env.NOTION_API_TOKEN
 const databaseId = process.env.NOTION_DB_ID
 
 async function run(): Promise<void> {
   try {
-    if (databaseId === undefined) {
+    if (token === undefined) {
+      console.log('NOTION_API_TOKEN is not defined')
       return
     }
+
+    if (databaseId === undefined) {
+      console.log('NOTION_DB_ID is not defined')
+      return
+    }
+
+    const notion = new Client({
+      auth: token
+    })
+
     const filter = core.getInput('filter')
     JSON.stringify(filter)
     const headerText = core.getInput('header')
