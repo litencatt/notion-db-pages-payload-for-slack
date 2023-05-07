@@ -9,11 +9,13 @@ const databaseId = process.env.NOTION_DB_ID
 async function run(): Promise<void> {
   if (token === undefined) {
     core.setFailed('NOTION_API_TOKEN is not defined')
+    process.exit(1)
     return
   }
 
   if (databaseId === undefined) {
     core.setFailed('NOTION_DB_ID is not defined')
+    process.exit(1)
     return
   }
 
@@ -34,7 +36,7 @@ async function run(): Promise<void> {
     JSON.parse(filter)
   } catch (error) {
     if (error instanceof Error) core.setFailed(error.message)
-    return
+    process.exit(1)
   }
 
   try {
@@ -56,7 +58,7 @@ async function run(): Promise<void> {
     }
     if (pages.length === 0) {
       console.log('No pages found')
-      return
+      process.exit(1)
     }
 
     const pageLinks = []
