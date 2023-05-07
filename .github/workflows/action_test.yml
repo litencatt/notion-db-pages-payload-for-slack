@@ -17,6 +17,8 @@ jobs:
           NOTION_API_TOKEN: ${{ secrets.NOTION_API_TOKEN }}
           NOTION_DB_ID: ${{ secrets.NOTION_DB_ID }}
         with:
+          header: Header
+          description: Description
           filter: |
             {
               "property": "Select",
