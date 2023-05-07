@@ -36,7 +36,7 @@ async function run(): Promise<void> {
       cursor = next_cursor
     }
 
-    const pageLinks = ['- ']
+    const pageLinks = []
     for (const page of pages) {
       if (page.object !== 'page') {
         continue
@@ -46,7 +46,7 @@ async function run(): Promise<void> {
       }
       for (const [, prop] of Object.entries(page.properties)) {
         if (prop.type === 'title') {
-          pageLinks.push(`<${page.url}>|${prop.title[0].plain_text}`)
+          pageLinks.push(`- <${page.url}|${prop.title[0].plain_text}>`)
         }
       }
     }
@@ -73,7 +73,7 @@ async function run(): Promise<void> {
       type: 'section',
       text: {
         type: 'mrkdwn',
-        text: pageLinks.join('\n-')
+        text: pageLinks.join('\n')
       }
     })
     const payload = {blocks}
