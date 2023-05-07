@@ -51,12 +51,12 @@ const databaseId = process.env.NOTION_DB_ID;
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         if (token === undefined) {
-            console_1.default.log('NOTION_API_TOKEN is not defined');
-            return;
+            core.setFailed('NOTION_API_TOKEN is not defined');
+            throw new Error('Need to set secrets.NOTION_API_TOKEN');
         }
         if (databaseId === undefined) {
-            console_1.default.log('NOTION_DB_ID is not defined');
-            return;
+            core.setFailed('NOTION_DB_ID is not defined');
+            throw new Error('Need to set secrets.NOTION_DB_ID');
         }
         const notion = new client_1.Client({
             auth: token
@@ -72,9 +72,10 @@ function run() {
         try {
             JSON.parse(filter);
         }
-        catch (e) {
-            console_1.default.log(e);
-            return;
+        catch (error) {
+            if (error instanceof Error)
+                core.setFailed(error.message);
+            throw new Error('Need to provide valid JSON filter');
         }
         try {
             const pages = [];
@@ -94,8 +95,8 @@ function run() {
                 cursor = next_cursor;
             }
             if (pages.length === 0) {
-                console_1.default.log('No pages found');
-                return;
+                console_1.default.error('No pages found');
+                throw new Error('Need to result at least 1 page for generate payload');
             }
             const pageLinks = [];
             for (const page of pages) {
