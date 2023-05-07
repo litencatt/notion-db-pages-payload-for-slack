@@ -17,13 +17,13 @@ jobs:
           NOTION_API_TOKEN: ${{ secrets.NOTION_API_TOKEN }}
           NOTION_DB_ID: ${{ secrets.NOTION_DB_ID }}
         with:
-          header: Header
-          description: Description
+          header: Header text
+          description: Description text
           filter: |
             {
               "property": "Select",
               "select": {
-                "equals": "Select1"
+                "equals": "Foo"
               }
             }
 
