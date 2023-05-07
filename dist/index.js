@@ -61,6 +61,11 @@ function run() {
         const notion = new client_1.Client({
             auth: token
         });
+        // Run local for development, set action inputs like this
+        // - export INPUT_FILTER="{\"property\":\"Select\",\"select\":{\"equals\":\"Foo\"}}"
+        // - export INPUT_HEADER=...
+        // - export INPUT_DESCRIPTION=...
+        // $ yarn dev
         const filter = core.getInput('filter');
         const headerText = core.getInput('header');
         const desc = core.getInput('description');
@@ -69,6 +74,7 @@ function run() {
         }
         catch (e) {
             console_1.default.log(e);
+            return;
         }
         try {
             const pages = [];
