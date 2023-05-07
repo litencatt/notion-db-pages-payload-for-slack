@@ -4,12 +4,13 @@ author: 'litencatt'
 inputs:
   header:
     default: ''
-    description: ''
+    description: 'A header contain to slack send message'
     required: false
   description:
     default: ''
-    description: ''
+    description: 'A description contain to slack send message'
     required: false
+  # https://developers.notion.com/reference/post-database-query-filter
   filter:
     description: 'JSON filter payload to query to Notion database'
     required: true
