@@ -12,7 +12,15 @@ jobs:
 
     steps:
       - name: Notion DB pages payload for slack
-        uses: litencatt/notion-db-pages-payload-for-slack@v0.1.0
+        uses: litencatt/notion-db-pages-payload-for-slack@main
+        with:
+          filter: |
+            {
+              "property": "Select",
+              "select": {
+                "equals": "Select1"
+              }
+            }
 
       - name: Send custom JSON data to Slack workflow
         id: slack
