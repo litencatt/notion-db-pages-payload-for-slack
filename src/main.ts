@@ -21,9 +21,15 @@ async function run(): Promise<void> {
     auth: token
   })
 
+  // Run local for development, set action inputs like this
+  // - export INPUT_FILTER="{\"property\":\"Select\",\"select\":{\"equals\":\"Foo\"}}"
+  // - export INPUT_HEADER=...
+  // - export INPUT_DESCRIPTION=...
+  // $ yarn start
   const filter = core.getInput('filter')
   const headerText = core.getInput('header')
   const desc = core.getInput('description')
+
   try {
     JSON.parse(filter)
   } catch (e) {
