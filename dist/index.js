@@ -50,22 +50,27 @@ const token = process.env.NOTION_API_TOKEN;
 const databaseId = process.env.NOTION_DB_ID;
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
+        if (token === undefined) {
+            console_1.default.log('NOTION_API_TOKEN is not defined');
+            return;
+        }
+        if (databaseId === undefined) {
+            console_1.default.log('NOTION_DB_ID is not defined');
+            return;
+        }
+        const notion = new client_1.Client({
+            auth: token
+        });
+        const filter = core.getInput('filter');
+        const headerText = core.getInput('header');
+        const desc = core.getInput('description');
         try {
-            if (token === undefined) {
-                console_1.default.log('NOTION_API_TOKEN is not defined');
-                return;
-            }
-            if (databaseId === undefined) {
-                console_1.default.log('NOTION_DB_ID is not defined');
-                return;
-            }
-            const notion = new client_1.Client({
-                auth: token
-            });
-            const filter = core.getInput('filter');
-            JSON.stringify(filter);
-            const headerText = core.getInput('header');
-            const desc = core.getInput('description');
+            JSON.parse(filter);
+        }
+        catch (e) {
+            console_1.default.log(e);
+        }
+        try {
             const pages = [];
             let cursor = undefined;
             const isLoop = true;
